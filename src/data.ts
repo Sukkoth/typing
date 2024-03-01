@@ -1,0 +1,2 @@
+export const alphabets = `In the bustling city of New York, there is a small coffee shop that has become a favorite among locals. The shop is cozy and inviting, with warm lighting and comfortable seating. The aroma of freshly brewed coffee
+fills the air, and the sound of clinking cups and chatter of customers creates a lively atmosphere. The barista is friendly and always ready to make a perfect cup of coffee, just the way you like it. Whether you're looking for a quick pick-me-up or a place to relax and catch up with friends, this coffee shop is the perfect spot.`;
