@@ -1,30 +1,51 @@
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { STATUS } from "../../App";
 
-type TimerProps = {
-  timer: number;
+type TimeProps = {
+  time: number;
+  onFinish: () => void;
+  status: STATUS;
+  setStatus: Dispatch<SetStateAction<STATUS>>;
 };
 
-function Timer({ timer }: TimerProps) {
-  const [coutDown, setCountDown] = useState<number>(timer);
-  const timerRef = useRef<number | null>();
+function Time({ time, onFinish, status, setStatus }: TimeProps) {
+  const [coutDown, setCountDown] = useState<number>(time);
+  const timeRef = useRef<number | null>();
 
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setCountDown((prev) => prev - 1);
-    }, 1000);
-
+    if (status === "playing") {
+      timeRef.current = setInterval(() => {
+        setCountDown((prev) => prev - 1);
+      }, 1000);
+    }
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
+      if (timeRef.current) {
+        clearInterval(timeRef.current);
       }
     };
-  }, []);
+  }, [status]);
 
   useEffect(() => {
     if (coutDown <= 0) {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timeRef.current) clearInterval(timeRef.current);
+      onFinish();
     }
-  }, [coutDown]);
+  }, [coutDown, onFinish]);
+
+  useEffect(() => {
+    setCountDown(time);
+  }, [time, status]);
+
+  useEffect(() => {
+    const listener = () => {
+      setStatus("playing");
+    };
+    document.addEventListener("keydown", listener);
+
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  });
 
   return (
     <div className='text-center'>
@@ -34,4 +55,4 @@ function Timer({ timer }: TimerProps) {
   );
 }
 
-export default Timer;
+export default Time;
