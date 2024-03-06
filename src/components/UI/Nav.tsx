@@ -1,10 +1,12 @@
-import { PiHouseBold } from 'react-icons/pi';
+import { PiHouseBold } from "react-icons/pi";
+import icon from "/keyboard.png";
 
 function Nav() {
   return (
     <nav className='flex justify-between px-5 py-10 items-center font-bold'>
-      <div>
-        <h1>CenterVille</h1>
+      <div className='flex items-center gap-3'>
+        <h1 className='text-2xl'>Typy</h1>
+        <img src={icon} alt='icon.png' className='w-10' />
       </div>
       <div className='flex gap-6 items-center'>
         <p className='text-[#44504c]'>Practice mode</p>
